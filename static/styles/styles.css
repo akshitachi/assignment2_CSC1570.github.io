@@ -1,0 +1,101 @@
+body {
+  margin: 0;
+}
+
+.main_text {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 33px;
+}
+
+.background-container {
+  background-image: url("../img/back.svg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 316px;
+}
+
+.search-bar {
+  display: flex;
+  border: none;
+  border-radius: 10px;
+  margin: 0 auto;
+  width: 700px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.search-icon,
+.clear-icon {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  padding: 10px 11px;
+  color: #8C8C89;
+}
+
+.search-icon:hover,
+.clear-icon:hover {
+  color: black;
+}
+
+.search-input {
+  flex: 1;
+  margin-left: 10px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background-color: transparent;
+}
+
+
+.divider {
+  border-left: 2px solid lightgrey;
+  height: 40px;
+}
+
+.search-input::placeholder {
+  color: #8C8C89;
+}
+
+.search-button-overall{
+  background: transparent;
+  border: none;
+  width: 35px;
+  height: 16px;
+}
+
+.secondPart{
+  padding-left: 210px;
+  padding-right: 210px;
+}
+.navbar{
+  background-color: #F5F5FA;
+  height: 55px;
+}
+
+.navbar button.active {
+  background-color: #C8C8C8;
+  color: black;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.navbar button{
+  font-family: 'Open Sans', sans-serif;
+  border: none;
+  background-color: #F5F5FA;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.company-info {
+  font-family: Arial, sans-serif;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #333;
+}
+
+.company-logo {
+  max-width: 100%;
+  height: auto;
+}
