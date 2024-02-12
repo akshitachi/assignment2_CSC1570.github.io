@@ -12,7 +12,6 @@ body {
 .background-container {
   background-image: url("../img/back.svg");
   background-repeat: no-repeat;
-  background-attachment: fixed;
   height: 316px;
 }
 
@@ -58,20 +57,21 @@ body {
   color: #8C8C89;
 }
 
-.search-button-overall{
+.search-button-overall {
   background: transparent;
   border: none;
   width: 35px;
   height: 16px;
 }
 
-.secondPart{
+.secondPart {
   padding-left: 210px;
   padding-right: 210px;
 }
-.navbar{
+
+.navbar {
   background-color: #F5F5FA;
-  height: 55px;
+  height: 52px;
 }
 
 .navbar button.active {
@@ -80,22 +80,52 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-.navbar button{
+.navbar button {
   font-family: 'Open Sans', sans-serif;
   border: none;
   background-color: #F5F5FA;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 15px;
+  font-size: 16px;
 }
-.company-info {
-  font-family: Arial, sans-serif;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  color: #333;
+
+.navbar button:hover{
+  cursor:pointer;
+  background-color:#DDDDDD;
 }
 
 .company-logo {
-  max-width: 100%;
-  height: auto;
+  width: 155px;
+  height: 155px;
+  margin-left: 225px;
+  margin-top: 35px;
+  margin-bottom: 15px; 
+}
+.left-items{
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  text-align: end;
+}
+
+hr{
+  color: #F5F5FA;
+  margin: 0;
+}
+
+.error {
+  background-color: #E9E9E9;
+  text-align: center;
+  border-radius: 20px;
+  width: 730px;
+  margin-left: 237px;
+}
+
+.errorMessage {
+  font-family: Arial, sans-serif;
+  padding: 18px;
+  font-size: 19px;
+}
+
+.tab-content{
+  padding-left: 240px;
+  padding-right: 240px;
 }

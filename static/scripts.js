@@ -7,9 +7,15 @@ function onSearch() {
     req.open("GET", `/search?searchText=${searchText}`);
     req.onload = () => {
         const companyDataReceived = req.responseText;
-        const companyData=JSON.parse(companyDataReceived);
-        displayData('company', companyData);
-        document.getElementById('tabsContainer').style.display = 'flex';
+        const companyData = JSON.parse(companyDataReceived);
+        if (companyData.country != undefined) {
+            displayData('company', companyData);
+        }
+        else {
+            const errorMessage = document.getElementById('secondPart');
+            errorMessage.innerHTML = `<div class="error"><p class="errorMessage">Error: No record has been found, please enter a valid symbol</p></div>`;
+            return;
+        }
     }
     req.send();
     event.preventDefault();
@@ -17,54 +23,53 @@ function onSearch() {
 
 function displayData(tabName, data) {
     const tabs = ['company', 'stockSummary', 'charts', 'latestNews'];
-    tabs.forEach(tab => {
-        const tabContent = document.getElementById(`${tab}Tab`);
-        if (tabContent) {
-            tabContent.style.display = tab === tabName ? 'block' : 'none';
-        }
-    });
-
-
-    const tabContent = document.getElementById(`${tabName}Tab`);
-    if (tabContent) {
-        console.log(data.country);
-        tabContent.innerHTML = ` <div class="company-info">
-        <h2>${data.name}</h2>
-        <p><strong>Country:</strong> ${data.country}</p>
-        <p><strong>Currency:</strong> ${data.currency}</p>
-        <!-- Add more properties as needed -->
-        <p><strong>Market Capitalization:</strong> ${data.marketCapitalization}</p>
-        <p><strong>Phone:</strong> ${data.phone}</p>
-        <!-- Show image if logo URL is available -->
+    const tabContent = document.getElementById(`secondPart`);
+    console.log(data.country);
+    tabContent.innerHTML = `<nav id="tabsContainer" class="navbar"><button data-tab="company" onclick="highlightTab('company')">Company</button><button data-tab="stockSummary" onclick="highlightTab('stockSummary')">Stock Summary</button><button data-tab="charts" onclick="highlightTab('charts')">Charts</button><button data-tab="latestNews" onclick="highlightTab('latestNews')">Latest News</button>
+      </nav>
+      <div id="companyTab" class="tab-content">
         ${data.logo ? `<img src="${data.logo}" alt="${data.name} Logo" class="company-logo">` : ''}
-        <!-- ... and so on -->
-        <p><strong>Web URL:</strong> <a href="${data.weburl}" target="_blank">${data.weburl}</a></p>
-    </div>`};
-    
 
+      <table style="width:100%">
+  <tr>
+    <td class="left-items">Company Name</td>
+    <td>${data.name}</td>
+  </tr>
+  <tr>
+    <td class="left-items">Stock Ticker Symbol</td>
+    <td>${data.ticker}</td>
+  </tr>
+  <tr>
+    <td class="left-items">Stock Exchange code</td>
+    <td>${data.exchange}</td>
+  </tr>
+  <tr>
+    <td class="left-items">Company Start Date</td>
+    <td>${data.ipo}</td>
+  </tr>
+  <tr>
+    <td class="left-items">Category</td>
+    <td>${data.finnhubIndustry}</td>
+  </tr>
+</table>
+    </div>`
     highlightTab(tabName);
 }
 
 function highlightTab(tabName) {
-let activeTab = 'company'; 
-
-    // Remove the highlight class from all tabs
+    let activeTab = 'company';
     const tabs = document.querySelectorAll('.navbar button');
     tabs.forEach(tab => {
         tab.classList.remove('active');
     });
-
-    // Add the highlight class to the active tab
     const activeTabButton = document.querySelector(`.navbar button[data-tab="${tabName}"]`);
     if (activeTabButton) {
         activeTabButton.classList.add('active');
     }
-
-    // Update the active tab variable
     activeTab = tabName;
 }
 
-function onClear () {
+function onClear() {
     document.getElementById("searchInput").value = "";
-    document.getElementById("secondPart").innerHTML="";
+    document.getElementById("secondPart").innerHTML = "";
 }
