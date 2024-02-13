@@ -124,6 +124,15 @@ hr{
   padding: 18px;
   font-size: 19px;
 }
+tr, td{
+  border: 1px solid #dddddd;
+  padding: 6px;
+  font-family: Arial, sans-serif;
+}
+table{
+  border-collapse: collapse;
+  margin: 40px;
+}
 
 .tab-content{
   padding-left: 240px;

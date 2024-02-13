@@ -8,11 +8,18 @@ def getData():
     api_key = 'cn419h9r01qtsta4e100cn419h9r01qtsta4e10g'
     symbol = request.args.get("searchText")
     endpoint = f' https://finnhub.io/api/v1/stock/profile2?symbol={symbol}&token={api_key}'
+    endpoint2= f' https://finnhub.io/api/v1/quote?symbol={symbol}&token={api_key}'
     response = requests.get(endpoint)
-    if response.status_code==200:
+    response2= requests.get(endpoint2)
+    if response.status_code==200 and response2.status_code==200:
+        data2=response2.json()
         data = response.json()
-        print(data)
-        return jsonify(data)
+        all_data = {
+        'data1': data,
+        'data2': data2,
+        # Add more data as needed
+    }
+        return jsonify(all_data)
     else:
         return jsonify({'error': 'Failed to retrieve data'}), 500
     
