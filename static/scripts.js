@@ -26,7 +26,7 @@ function displayData(tabName, fullData) {
   const tabContent = document.getElementById(`secondPart`);
   const companyData = fullData.data1;
   const summaryStockData = fullData.data2;
-  console.log(summaryStockData);
+  const recommendationData=fullData.data3[0];
   const unixEpochTime = summaryStockData.t;
   const date = new Date(unixEpochTime * 1000);
   const options = { day: 'numeric', month: 'long', year: 'numeric' };
@@ -60,7 +60,7 @@ function displayData(tabName, fullData) {
 </table>
     </div>
 
-    <div id="stockSummaryTab" class="tab-content" style="display: none;">
+    <div id="stockSummaryTab" class="tab-content2" style="display: none;">
     <table style="width:100%">
   <tr>
     <td class="left-items">Stock Ticker Symbol</td>
@@ -88,13 +88,34 @@ function displayData(tabName, fullData) {
   </tr>
   <tr>
     <td class="left-items">Change</td>
-    <td>${summaryStockData.d}</td>
+    <td>
+    ${summaryStockData.d}
+            ${summaryStockData.d < 0 ? '<img src="static/img/RedArrowDown.png" alt="Down Arrow" class="arrow-img">' : '<img src="static/img/GreenArrowUp.png" alt="Up Arrow" class="arrow-img">'}
+    </td>
   </tr>
   <tr>
     <td class="left-items">Change Percent</td>
-    <td>${summaryStockData.dp}</td>
+    <td>${summaryStockData.dp}
+    ${summaryStockData.dp < 0 ? '<img src="static/img/RedArrowDown.png" alt="Down Arrow" class="arrow-img">' : '<img src="static/img/GreenArrowUp.png" alt="Up Arrow" class="arrow-img">'}</td>
   </tr>
 </table>
+    <div class="gauge">
+    <div class="strong-text">
+        <div class="label">Strong</div>
+        <div class="label">Sell</div>
+        </div>
+            <div class="recommendation-box1"><p class="buy">${recommendationData.strongSell}</p></div>
+            <div class="recommendation-box2"><p class="buy">${recommendationData.sell}</p></div>
+            <div class="recommendation-box3"><p class="buy">${recommendationData.hold}</p></div>
+            <div class="recommendation-box4"><p class="buy">${recommendationData.buy}</p></div>
+            <div class="recommendation-box5"><p class="buy">${recommendationData.strongBuy}</p></div>
+        <div class="strong-text2">
+        <div class="label">Strong</div>
+        <div class="label">Buy</div>
+        </div>
+    </div>
+    <div class="recommendation">Recommendation Trends</div>
+
     </div>
     `
   highlightTab(tabName);
@@ -114,7 +135,7 @@ function highlightTab(tabName) {
   const companyTab = document.getElementById('companyTab');
   const stockSummaryTab = document.getElementById('stockSummaryTab');
   if (tabName === "stockSummary") {
-    stockSummaryTab.style.display = "flex";
+    stockSummaryTab.style.display = "block";
     companyTab.style.display = "none";
   }
   else {
