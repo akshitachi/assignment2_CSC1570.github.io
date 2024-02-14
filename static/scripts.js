@@ -31,7 +31,7 @@ function displayData(tabName, fullData) {
   const date = new Date(unixEpochTime * 1000);
   const options = { day: 'numeric', month: 'long', year: 'numeric' };
   const formattedDate = date.toLocaleDateString('en-US', options);
-  tabContent.innerHTML = `<nav id="tabsContainer" class="navbar"><button data-tab="company" onclick="highlightTab('company')">Company</button><button data-tab="stockSummary" onclick="highlightTab('stockSummary')">Stock Summary</button><button data-tab="charts" onclick="highlightTab('charts')">Charts</button><button data-tab="latestNews" onclick="highlightTab('latestNews')">Latest News</button>
+  tabContent.innerHTML = `<nav id="tabsContainer" class="navbar"><button data-tab="company" onclick="highlightTab('company')">Company</button><button data-tab="stockSummary" onclick="highlightTab('stockSummary')">Stock Summary</button><button data-tab="charts" onclick="highlightTab('graph')">Charts</button><button data-tab="latestNews" onclick="highlightTab('latestNews')">Latest News</button>
       </nav>
       <div id="companyTab" class="tab-content">
         ${companyData.logo ? `<img src="${companyData.logo}" alt="${companyData.name} Logo" class="company-logo">` : ''}
@@ -115,8 +115,9 @@ function displayData(tabName, fullData) {
         </div>
     </div>
     <div class="recommendation">Recommendation Trends</div>
-
     </div>
+
+    <div id="graphTab" style="display: none;">Hellloo</div>
     `
   highlightTab(tabName);
 }
@@ -134,15 +135,22 @@ function highlightTab(tabName) {
   activeTab = tabName;
   const companyTab = document.getElementById('companyTab');
   const stockSummaryTab = document.getElementById('stockSummaryTab');
+  const graphTab = document.getElementById('graphTab');
   if (tabName === "stockSummary") {
     stockSummaryTab.style.display = "block";
     companyTab.style.display = "none";
+    graphTab.style.display="none";
+  }
+  else if(tabName === "graph") {
+    stockSummaryTab.style.display = "none";
+    companyTab.style.display = "none";
+    graphTab.style.display="block";
   }
   else {
     stockSummaryTab.style.display = "none";
     companyTab.style.display = "block";
+    graphTab.style.display="none";
   }
-
 }
 
 function onClear() {
