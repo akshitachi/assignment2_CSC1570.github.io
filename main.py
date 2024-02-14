@@ -32,6 +32,7 @@ def getData():
         'data2': data2,
         'data3': data3,
         'data4': data4,
+        'date':datetime.today().strftime('%Y-%m-%d'),
         # Add more data as needed
     }
         return jsonify(all_data)

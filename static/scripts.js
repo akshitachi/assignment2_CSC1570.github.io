@@ -29,6 +29,7 @@ function displayData(tabName, fullData) {
   const recommendationData = fullData.data3[0];
   const graphDataOverall = fullData.data4
   const graphData = graphDataOverall.results;
+  const TodayDate = fullData.date;
   let volumeData = [];
   let timeData = [];
   for (let entry of graphData) {
@@ -39,7 +40,7 @@ function displayData(tabName, fullData) {
   const date = new Date(unixEpochTime * 1000);
   const options = { day: 'numeric', month: 'long', year: 'numeric' };
   const formattedDate = date.toLocaleDateString('en-US', options);
-  tabContent.innerHTML = `<nav id="tabsContainer" class="navbar"><button data-tab="company" onclick="highlightTab('company')">Company</button><button data-tab="stockSummary" onclick="highlightTab('stockSummary')">Stock Summary</button><button data-tab="charts" onclick="highlightTab('graph')">Charts</button><button data-tab="latestNews" onclick="highlightTab('latestNews')">Latest News</button>
+  tabContent.innerHTML = `<nav id="tabsContainer" class="navbar"><button data-tab="company" onclick="highlightTab('company')">Company</button><button data-tab="stockSummary" onclick="highlightTab('stockSummary')">Stock Summary</button><button data-tab="graph" onclick="highlightTab('graph')">Charts</button><button data-tab="latestNews" onclick="highlightTab('latestNews')">Latest News</button>
       </nav>
       <div id="companyTab" class="tab-content">
         ${companyData.logo ? `<img src="${companyData.logo}" alt="${companyData.name} Logo" class="company-logo">` : ''}
@@ -129,9 +130,33 @@ function displayData(tabName, fullData) {
     
     </div>
    `
+  highlightTab(tabName);
+
   Highcharts.stockChart('graphTab', {
     rangeSelector: {
-      selected: 1
+      selected: 0,
+      buttons: [{
+        type: 'day',
+        count: 7,
+        text: '7d',
+    }, {
+        type: 'day',
+        count: 15,
+        text: '15d'
+    }, {
+        type: 'month',
+        count: 1,
+        text: '1m'
+    }, {
+        type: 'month',
+        count: 3,
+        text: '3m'
+    }, {
+        type: 'month',
+        count: 6,
+        text: '6m'
+    }],
+    inputEnabled:false,
     },
 
     yAxis: [{
@@ -171,7 +196,7 @@ function displayData(tabName, fullData) {
       yAxis: 0,
       threshold: null,
       tooltip: {
-        valueDecimals: 1
+        valueDecimals: 2
       },
       data: timeData,
       fillColor: {
@@ -186,8 +211,7 @@ function displayData(tabName, fullData) {
           [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
         ]
       },
-      color: 'blue',
-
+      color: '#28AFFA',
       fillOpacity: 0.3
     }, {
       name: '',
@@ -195,12 +219,13 @@ function displayData(tabName, fullData) {
       yAxis: 1,
       data: volumeData,
       color: 'black',
+      pointWidth: 5,
       tooltip: {
         valueDecimals: 0
       }
     }],
     title: {
-      text: 'Stock Price ' + graphDataOverall.ticker + ' (YYYY-MM-DD)'
+      text: 'Stock Price ' + graphDataOverall.ticker + ' '+ String(TodayDate)
     },
     subtitle: {
       text: 'Source: Polygon.io',
@@ -208,8 +233,6 @@ function displayData(tabName, fullData) {
       link: 'https://polygon.io/'
     },
   });
-
-  highlightTab(tabName);
 }
 
 function highlightTab(tabName) {
