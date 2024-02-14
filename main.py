@@ -27,12 +27,11 @@ def getData():
         data3 = response3.json()
         data2=response2.json()
         data = response.json()
-        print(data4)
         all_data = {
         'data1': data,
         'data2': data2,
         'data3': data3,
-        # 'data4': data4,
+        'data4': data4,
         # Add more data as needed
     }
         return jsonify(all_data)

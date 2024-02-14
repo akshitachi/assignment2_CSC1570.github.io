@@ -26,7 +26,15 @@ function displayData(tabName, fullData) {
   const tabContent = document.getElementById(`secondPart`);
   const companyData = fullData.data1;
   const summaryStockData = fullData.data2;
-  const recommendationData=fullData.data3[0];
+  const recommendationData = fullData.data3[0];
+  const graphDataOverall = fullData.data4
+  const graphData = graphDataOverall.results;
+  let volumeData = [];
+  let timeData = [];
+  for (let entry of graphData) {
+    timeData.push([entry.t, entry.c]);
+    volumeData.push([entry.t, entry.v]);
+  }
   const unixEpochTime = summaryStockData.t;
   const date = new Date(unixEpochTime * 1000);
   const options = { day: 'numeric', month: 'long', year: 'numeric' };
@@ -117,8 +125,90 @@ function displayData(tabName, fullData) {
     <div class="recommendation">Recommendation Trends</div>
     </div>
 
-    <div id="graphTab" style="display: none;">Hellloo</div>
-    `
+    <div id="graphTab" style="display: none;">
+    
+    </div>
+   `
+  Highcharts.stockChart('graphTab', {
+    rangeSelector: {
+      selected: 1
+    },
+
+    yAxis: [{
+      title: {
+        text: 'Stock Price'
+      },
+      opposite: false,
+      labels: {
+        formatter: function () {
+          return this.value.toFixed(2);
+        }
+      }
+    }, {
+      title: {
+        text: 'Volume'
+      },
+    }],
+    xAxis: {
+      type: 'datetime',
+      labels: {
+        formatter: function () {
+          return Highcharts.dateFormat('%b %e', this.value);
+        },
+      },
+      dateTimeLabelFormats: {
+        day: '%b %e',
+      },
+    },
+    navigator: {
+      series: {
+        name: ''
+      }
+    },
+    series: [{
+      name: '',
+      type: 'area',
+      yAxis: 0,
+      threshold: null,
+      tooltip: {
+        valueDecimals: 1
+      },
+      data: timeData,
+      fillColor: {
+        linearGradient: {
+          x1: 0,
+          y1: 0,
+          x2: 0,
+          y2: 1
+        },
+        stops: [
+          [0, Highcharts.getOptions().colors[0]],
+          [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+        ]
+      },
+      color: 'blue',
+
+      fillOpacity: 0.3
+    }, {
+      name: '',
+      type: 'column',
+      yAxis: 1,
+      data: volumeData,
+      color: 'black',
+      tooltip: {
+        valueDecimals: 0
+      }
+    }],
+    title: {
+      text: 'Stock Price ' + graphDataOverall.ticker + ' (YYYY-MM-DD)'
+    },
+    subtitle: {
+      text: 'Source: Polygon.io',
+      useHTML: true,
+      link: 'https://polygon.io/'
+    },
+  });
+
   highlightTab(tabName);
 }
 
@@ -139,17 +229,17 @@ function highlightTab(tabName) {
   if (tabName === "stockSummary") {
     stockSummaryTab.style.display = "block";
     companyTab.style.display = "none";
-    graphTab.style.display="none";
+    graphTab.style.display = "none";
   }
-  else if(tabName === "graph") {
+  else if (tabName === "graph") {
     stockSummaryTab.style.display = "none";
     companyTab.style.display = "none";
-    graphTab.style.display="block";
+    graphTab.style.display = "block";
   }
   else {
     stockSummaryTab.style.display = "none";
     companyTab.style.display = "block";
-    graphTab.style.display="none";
+    graphTab.style.display = "none";
   }
 }
 

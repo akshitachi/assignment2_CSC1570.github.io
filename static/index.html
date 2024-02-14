@@ -7,6 +7,11 @@
   <title>Search Page</title>
   <link rel="stylesheet" href="../static/styles/styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+  <script src="https://code.highcharts.com/stock/highstock.js"></script>
+  <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/stock/modules/accessibility.js"></script>
+  <script src="https://code.highcharts.com/modules/series-label.js"></script>
   <script src="/static/scripts.js"></script>
 </head>
 
@@ -25,8 +30,7 @@
           </svg>
           </svg>
         </button>
-        <input type="text" class="search-input" placeholder="Enter Stock Ticker Symbol"
-          id="searchInput" required>
+        <input type="text" class="search-input" placeholder="Enter Stock Ticker Symbol" id="searchInput" required>
         <div id="warning-message"></div>
         <div class="divider"></div>
         <svg class="clear-icon" onclick="onClear()" aria-hidden="true" focusable="false" data-prefix="fas"
@@ -39,7 +43,8 @@
       </div>
     </form>
   </div>
-<div id="secondPart" class="secondPart">
-</div>
+  <div id="secondPart" class="secondPart">
+  </div>
 </body>
+
 </html>
