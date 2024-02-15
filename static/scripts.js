@@ -133,30 +133,33 @@ function displayData(tabName, fullData) {
   highlightTab(tabName);
 
   Highcharts.stockChart('graphTab', {
+    chart: {
+      height: 600,
+  },
     rangeSelector: {
       selected: 0,
       buttons: [{
         type: 'day',
         count: 7,
         text: '7d',
-    }, {
+      }, {
         type: 'day',
         count: 15,
         text: '15d'
-    }, {
+      }, {
         type: 'month',
         count: 1,
         text: '1m'
-    }, {
+      }, {
         type: 'month',
         count: 3,
         text: '3m'
-    }, {
+      }, {
         type: 'month',
         count: 6,
         text: '6m'
-    }],
-    inputEnabled:false,
+      }],
+      inputEnabled: false,
     },
 
     yAxis: [{
@@ -225,12 +228,11 @@ function displayData(tabName, fullData) {
       }
     }],
     title: {
-      text: 'Stock Price ' + graphDataOverall.ticker + ' '+ String(TodayDate)
+      text: 'Stock Price ' + graphDataOverall.ticker + ' ' + String(TodayDate)
     },
     subtitle: {
-      text: 'Source: Polygon.io',
+      text: '<a href="https://polygon.io/" target="_blank">Source: Polygon.io</a>',
       useHTML: true,
-      link: 'https://polygon.io/'
     },
   });
 }
