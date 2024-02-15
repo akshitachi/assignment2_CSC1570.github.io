@@ -213,3 +213,35 @@ table{
   font-size: 20px;
   margin-top: 20px;
 }
+
+.news-container {
+  background-color: #F9F9FB;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px;
+  display: flex;
+  height: 120px;
+  margin-top: 22px;
+}
+.news-image {
+  width: 100px;
+  height: 100px;
+  padding: 13px;
+}
+.news-title {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+.news-date {
+  color: black;
+  margin-top: 5px;
+  font-family: Arial, sans-serif;
+}
+.news-url {
+  margin-top: 5px;
+  color: #353888;
+  font-family: Arial, sans-serif;
+  font-size: 17px;
+}

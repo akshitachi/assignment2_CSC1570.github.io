@@ -1,5 +1,5 @@
 function onSearch() {
-  const searchText = document.getElementById("searchInput").value;
+  const searchText = document.getElementById("searchInput").value.trim().toUpperCase();
   if (searchText === "") {
     return;
   }
@@ -27,11 +27,32 @@ function displayData(tabName, fullData) {
   const companyData = fullData.data1;
   const summaryStockData = fullData.data2;
   const recommendationData = fullData.data3[0];
-  const graphDataOverall = fullData.data4
+  const graphDataOverall = fullData.data4;
+  const newsData =fullData.data5;
   const graphData = graphDataOverall.results;
   const TodayDate = fullData.date;
   let volumeData = [];
   let timeData = [];
+  const filteredData = newsData.filter(item => {
+    return (
+      item.image &&
+      item.headline &&
+      item.datetime &&
+      item.url &&
+      item.url !== ''
+    );
+  });
+  const top5Data = filteredData.slice(0, 5);
+
+  console.log("Top 5 News Items:");
+  top5Data.forEach(item => {
+    console.log("Headline:", item.headline);
+    console.log("Image:", item.image);
+    console.log("Date:", new Date(item.datetime * 1000).toLocaleString());
+    console.log("Link:", item.url);
+    console.log("-----------------------------");
+  });
+
   for (let entry of graphData) {
     timeData.push([entry.t, entry.c]);
     volumeData.push([entry.t, entry.v]);
@@ -127,7 +148,8 @@ function displayData(tabName, fullData) {
     </div>
 
     <div id="graphTab" style="display: none;">
-    
+    </div>
+    <div id="latestNews" style="display: none;">
     </div>
    `
   highlightTab(tabName);
@@ -235,10 +257,48 @@ function displayData(tabName, fullData) {
       useHTML: true,
     },
   });
+  const latestNewsTab = document.getElementById('latestNews');
+  
+  top5Data.forEach(item => {
+    const container = document.createElement('div');
+      container.className = 'news-container';
+
+      const image = document.createElement('img');
+      image.className = 'news-image';
+      image.src = item.image;
+      container.appendChild(image);
+
+    const containerColumn = document.createElement('div');
+    containerColumn.className = 'news-container-column';
+
+
+      const title = document.createElement('div');
+      title.className = 'news-title';
+      title.textContent = item.headline;
+      containerColumn.appendChild(title);
+
+      const date = document.createElement('div');
+      date.className = 'news-date';
+      const formattedDate = new Date(item.datetime * 1000).toLocaleDateString('en-US', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      });
+      date.textContent = formattedDate;
+      containerColumn.appendChild(date);
+
+      const url = document.createElement('a');
+      url.className = 'news-url';
+      url.href = item.url;
+      url.textContent = 'See Original Post';
+      url.target='_blank';
+      containerColumn.appendChild(url);
+      container.appendChild(containerColumn);
+      latestNewsTab.appendChild(container);
+  });
 }
 
 function highlightTab(tabName) {
-  let activeTab = 'company';
   const tabs = document.querySelectorAll('.navbar button');
   tabs.forEach(tab => {
     tab.classList.remove('active');
@@ -247,24 +307,33 @@ function highlightTab(tabName) {
   if (activeTabButton) {
     activeTabButton.classList.add('active');
   }
-  activeTab = tabName;
   const companyTab = document.getElementById('companyTab');
   const stockSummaryTab = document.getElementById('stockSummaryTab');
   const graphTab = document.getElementById('graphTab');
+  const latestNewsTab = document.getElementById('latestNews');
   if (tabName === "stockSummary") {
     stockSummaryTab.style.display = "block";
     companyTab.style.display = "none";
     graphTab.style.display = "none";
+    latestNewsTab.style.display = "none";
   }
   else if (tabName === "graph") {
     stockSummaryTab.style.display = "none";
     companyTab.style.display = "none";
     graphTab.style.display = "block";
+    latestNewsTab.style.display = "none";
   }
-  else {
+  else if (tabName === "latestNews") {
+    stockSummaryTab.style.display = "none";
+    companyTab.style.display = "none";
+    graphTab.style.display = "none";
+    latestNewsTab.style.display = "block";
+  }
+  else{
     stockSummaryTab.style.display = "none";
     companyTab.style.display = "block";
     graphTab.style.display = "none";
+    latestNewsTab.style.display = "none";
   }
 }
 
