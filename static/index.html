@@ -18,9 +18,9 @@
 <body>
   <div class="background-container">
     <h1 class="main_text">Stock Search</h1>
-    <form id="searchForm">
+    <form id="searchForm" onsubmit="event.preventDefault(); onSearch();">
       <div class="search-bar">
-        <button type="submit" class="search-button-overall">
+        <button type="submit" class="search-button-overall" id="search-button-overall">
           <svg class="search-icon" id="search-button" onclick="onSearch()" aria-hidden="true" focusable="false"
             data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img"
             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -30,7 +30,7 @@
           </svg>
           </svg>
         </button>
-        <input type="text" class="search-input" placeholder="Enter Stock Ticker Symbol" id="searchInput" required>
+        <input type="text" class="search-input" id="searchInput" placeholder="Enter Stock Ticker Symbol" required>
         <div id="warning-message"></div>
         <div class="divider"></div>
         <svg class="clear-icon" onclick="onClear()" aria-hidden="true" focusable="false" data-prefix="fas"

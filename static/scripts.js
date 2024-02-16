@@ -28,7 +28,7 @@ function displayData(tabName, fullData) {
   const summaryStockData = fullData.data2;
   const recommendationData = fullData.data3[0];
   const graphDataOverall = fullData.data4;
-  const newsData =fullData.data5;
+  const newsData = fullData.data5;
   const graphData = graphDataOverall.results;
   const TodayDate = fullData.date;
   let volumeData = [];
@@ -134,11 +134,11 @@ function displayData(tabName, fullData) {
         <div class="label">Strong</div>
         <div class="label">Sell</div>
         </div>
-            <div class="recommendation-box1"><p class="buy">${recommendationData.strongSell}</p></div>
-            <div class="recommendation-box2"><p class="buy">${recommendationData.sell}</p></div>
-            <div class="recommendation-box3"><p class="buy">${recommendationData.hold}</p></div>
-            <div class="recommendation-box4"><p class="buy">${recommendationData.buy}</p></div>
-            <div class="recommendation-box5"><p class="buy">${recommendationData.strongBuy}</p></div>
+            <div class="recommendation-box1"><center><p class="buy">${recommendationData.strongSell}</p></center></div>
+            <div class="recommendation-box2"><center><p class="buy">${recommendationData.sell}</p></center></div>
+            <div class="recommendation-box3"><center><p class="buy">${recommendationData.hold}</p></center></div>
+            <div class="recommendation-box4"><center><p class="buy">${recommendationData.buy}</p></center></div>
+            <div class="recommendation-box5"><center><p class="buy">${recommendationData.strongBuy}</p></center></div>
         <div class="strong-text2">
         <div class="label">Strong</div>
         <div class="label">Buy</div>
@@ -157,7 +157,7 @@ function displayData(tabName, fullData) {
   Highcharts.stockChart('graphTab', {
     chart: {
       height: 600,
-  },
+    },
     rangeSelector: {
       selected: 0,
       buttons: [{
@@ -243,7 +243,7 @@ function displayData(tabName, fullData) {
       type: 'column',
       yAxis: 1,
       data: volumeData,
-      color: 'black',
+      color: 'grey',
       pointWidth: 5,
       tooltip: {
         valueDecimals: 0
@@ -258,43 +258,45 @@ function displayData(tabName, fullData) {
     },
   });
   const latestNewsTab = document.getElementById('latestNews');
-  
+
   top5Data.forEach(item => {
     const container = document.createElement('div');
-      container.className = 'news-container';
+    container.className = 'news-container';
 
-      const image = document.createElement('img');
-      image.className = 'news-image';
-      image.src = item.image;
-      container.appendChild(image);
+    const image = document.createElement('img');
+    image.className = 'news-image';
+    image.src = item.image;
+    container.appendChild(image);
 
     const containerColumn = document.createElement('div');
     containerColumn.className = 'news-container-column';
 
 
-      const title = document.createElement('div');
-      title.className = 'news-title';
-      title.textContent = item.headline;
-      containerColumn.appendChild(title);
+    const title = document.createElement('div');
+    title.className = 'news-title';
+    title.textContent = item.headline;
+    containerColumn.appendChild(title);
 
-      const date = document.createElement('div');
-      date.className = 'news-date';
-      const formattedDate = new Date(item.datetime * 1000).toLocaleDateString('en-US', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      });
-      date.textContent = formattedDate;
-      containerColumn.appendChild(date);
+    const date = document.createElement('div');
+    date.className = 'news-date';
+    const dateObject = new Date(item.datetime * 1000);
 
-      const url = document.createElement('a');
-      url.className = 'news-url';
-      url.href = item.url;
-      url.textContent = 'See Original Post';
-      url.target='_blank';
-      containerColumn.appendChild(url);
-      container.appendChild(containerColumn);
-      latestNewsTab.appendChild(container);
+    const day = dateObject.toLocaleDateString('en-US', { day: 'numeric' });
+    const month = dateObject.toLocaleDateString('en-US', { month: 'long' });
+    const year = dateObject.toLocaleDateString('en-US', { year: 'numeric' });
+
+    const formattedDate = `${day} ${month}, ${year}`;
+    date.textContent = formattedDate;
+    containerColumn.appendChild(date);
+
+    const url = document.createElement('a');
+    url.className = 'news-url';
+    url.href = item.url;
+    url.textContent = 'See Original Post';
+    url.target = '_blank';
+    containerColumn.appendChild(url);
+    container.appendChild(containerColumn);
+    latestNewsTab.appendChild(container);
   });
 }
 
@@ -329,7 +331,7 @@ function highlightTab(tabName) {
     graphTab.style.display = "none";
     latestNewsTab.style.display = "block";
   }
-  else{
+  else {
     stockSummaryTab.style.display = "none";
     companyTab.style.display = "block";
     graphTab.style.display = "none";
