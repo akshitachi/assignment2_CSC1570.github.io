@@ -43,20 +43,15 @@ function displayData(tabName, fullData) {
     );
   });
   const top5Data = filteredData.slice(0, 5);
-
-  console.log("Top 5 News Items:");
-  top5Data.forEach(item => {
-    console.log("Headline:", item.headline);
-    console.log("Image:", item.image);
-    console.log("Date:", new Date(item.datetime * 1000).toLocaleString());
-    console.log("Link:", item.url);
-    console.log("-----------------------------");
-  });
-
+var maxVol=0;
   for (let entry of graphData) {
+    if(entry.v>maxVol){
+    maxVol = entry.v;
+    }
     timeData.push([entry.t, entry.c]);
     volumeData.push([entry.t, entry.v]);
   }
+  console.log(maxVol);
   const unixEpochTime = summaryStockData.t;
   const date = new Date(unixEpochTime * 1000);
   const options = { day: 'numeric', month: 'long', year: 'numeric' };
@@ -198,6 +193,7 @@ function displayData(tabName, fullData) {
       title: {
         text: 'Volume'
       },
+      max : maxVol*2,
     }],
     xAxis: {
       type: 'datetime',
@@ -212,13 +208,18 @@ function displayData(tabName, fullData) {
     },
     navigator: {
       series: {
-        name: ''
+        name:"",
+          accessibility: {
+              exposeAsGroupOnly: true
+          }
       }
-    },
-    series: [{
-      name: '',
+  },
+    series: [
+      {
+      name: 'Stock price',
       type: 'area',
       yAxis: 0,
+      label:"",
       threshold: null,
       tooltip: {
         valueDecimals: 2
@@ -237,18 +238,21 @@ function displayData(tabName, fullData) {
         ]
       },
       color: '#28AFFA',
-      fillOpacity: 0.3
-    }, {
-      name: '',
+    }, 
+    {
+      name: 'Volume',
       type: 'column',
+      label:"",
       yAxis: 1,
       data: volumeData,
-      color: 'grey',
-      pointWidth: 5,
+      threshold:null,
+      color: 'black',
+      pointWidth: 3,
       tooltip: {
         valueDecimals: 0
       }
-    }],
+    }
+  ],
     title: {
       text: 'Stock Price ' + graphDataOverall.ticker + ' ' + String(TodayDate)
     },

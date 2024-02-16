@@ -32,7 +32,6 @@ def getData():
         data3 = response3.json()
         data2=response2.json()
         data = response.json()
-        print(data5)
         all_data = {
         'data1': data,
         'data2': data2,
