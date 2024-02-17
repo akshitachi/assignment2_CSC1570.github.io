@@ -44,7 +44,7 @@ def getData():
     else:
         return jsonify({'error': 'Failed to retrieve data'}), 500
     
-@app.route("/")
+@app.route("/index.html")
 def hello():
     return app.send_static_file('index.html')
 

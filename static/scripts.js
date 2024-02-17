@@ -129,11 +129,11 @@ var maxVol=0;
         <div class="label">Strong</div>
         <div class="label">Sell</div>
         </div>
-            <div class="recommendation-box1"><center><p class="buy">${recommendationData.strongSell}</p></center></div>
-            <div class="recommendation-box2"><center><p class="buy">${recommendationData.sell}</p></center></div>
-            <div class="recommendation-box3"><center><p class="buy">${recommendationData.hold}</p></center></div>
-            <div class="recommendation-box4"><center><p class="buy">${recommendationData.buy}</p></center></div>
-            <div class="recommendation-box5"><center><p class="buy">${recommendationData.strongBuy}</p></center></div>
+            <div class="recommendation-box1"><p class="buy">${recommendationData.strongSell}</p></div>
+            <div class="recommendation-box2"><p class="buy">${recommendationData.sell}</p></div>
+            <div class="recommendation-box3"><p class="buy">${recommendationData.hold}</p></div>
+            <div class="recommendation-box4"><p class="buy">${recommendationData.buy}</p></div>
+            <div class="recommendation-box5"><p class="buy">${recommendationData.strongBuy}</p></div>
         <div class="strong-text2">
         <div class="label">Strong</div>
         <div class="label">Buy</div>
@@ -247,7 +247,7 @@ var maxVol=0;
       data: volumeData,
       threshold:null,
       color: 'black',
-      pointWidth: 3,
+      pointWidth: 5,
       tooltip: {
         valueDecimals: 0
       }
