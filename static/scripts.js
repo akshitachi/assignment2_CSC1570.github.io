@@ -186,7 +186,8 @@ var maxVol=0;
       opposite: false,
       labels: {
         formatter: function () {
-          return this.value.toFixed(2);
+          var roundedValue = this.value.toFixed(1);
+        return roundedValue.replace(/\.0$/, '');
         }
       }
     }, {
