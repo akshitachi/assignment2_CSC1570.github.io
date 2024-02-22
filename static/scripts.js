@@ -226,6 +226,7 @@ var maxVol=0;
         valueDecimals: 2
       },
       data: timeData,
+      pointPlacement: 'on',
       fillColor: {
         linearGradient: {
           x1: 0,
@@ -243,6 +244,7 @@ var maxVol=0;
     {
       name: 'Volume',
       type: 'column',
+      pointPlacement: 'on',
       label:"",
       yAxis: 1,
       data: volumeData,
